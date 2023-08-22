@@ -5,32 +5,24 @@ const saque = document.getElementById('saque');
 const acerto = document.getElementById('saquerealizado');
 const erro = document.getElementById('erro');
 
-//estabelecendo a função
-function sacarDinheiro(saldo, saque){
-	return saldo > saque;
-}
-
 // definindo comando do botão e evitando o comando padrão do botão
 form.addEventListener('submit', function(e){
 	e.preventDefault();
 
 //validando a opção sacar o valor s(aldo sendo maior ou igual que saque) Sucesso 
-	let validaForm = sacarDinheiro(saldo.valueasNumber, saque.valueasNumber)
-	if(validaForm){
+	if(parseInt(saldo.value) >= parseInt(saque.value)){
 		acerto.style.display = 'block';
+		acerto.innerHTML = "Saque realizado com sucesso ! Seu novo saldo é " + (saldo.value - saque.value);
 		saldo.value='';
 		saque.value='';
-	
-	}
-})
-// msg erro caso valor saque seja maior que valor saldo 
-saque.addEventListener('keyup', function(e) {
-	let validaForm = sacarDinheiro(saldo.valueasNumber, saque.valueasNumber)
-	if (!validaForm){
-		erro.style.display='block';
-		acerto.style.display='none';
+		setTimeout(() => {
+			acerto.style.display = 'none';
+		},3000);
 
-	}else{
-		erro.style.display = 'none';
+	} else {
+		erro.style.display = 'block';
+		setTimeout(() =>{
+			erro.style.display = 'none';
+		},3000);
 	}
 })
